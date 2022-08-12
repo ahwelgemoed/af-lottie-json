@@ -125,7 +125,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Lottie JSON</title>
+        <title>MX Lottie JSON</title>
         <meta name="description" content="Mendix-Lottie Helper : Json String" />
         <link rel="icon" href="/favicon.png" />
       </Head>
@@ -136,7 +136,12 @@ const Home: NextPage = () => {
             <div className="hero-content grid gap-4 grid-cols-1 grid-rows-1 lg:grid-cols-2">
               <div className="text-center lg:text-left">
                 <h1 className="text-5xl font-bold">
-                  Lottie <span className="mendix">Mendix</span> Ready
+                  <Link href="https://airbnb.design/lottie/" target={"_blank"}>
+                    <a className="underline" target={"_blank"}>
+                      Lottie
+                    </a>
+                  </Link>
+                  <span className="ml-2 mendix">Mendix</span> Helper
                 </h1>
                 <p className="py-6">
                   Drop your <code className="kbd">.json</code> lottie Animation

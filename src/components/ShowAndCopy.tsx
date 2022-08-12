@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaCopy, FaEye } from "react-icons/fa";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import Lottie from "lottie-react";
 
 type ShowAndCopyType = {
   json: string;
@@ -12,17 +13,22 @@ const ShowAndCopy = (props: ShowAndCopyType) => {
     if (setCopy) {
       setTimeout(() => {
         setSetCopy(false);
-      }, 5000);
+      }, 3000);
     }
   }, [setCopy]);
 
   return (
     <div className="flex flex-col justify-center items-center bg-base-100 h-full p-5">
       <h3 className="text-lg">👏🏽 Great</h3>
+      <Lottie
+        animationData={JSON.parse(props.json)}
+        loop={true}
+        style={{ width: 100 }}
+      />
       <p className="text-sm text-center">
         You can click copy or select the text and paste it into Mendix
       </p>
-      <div className="flex">
+      <div className="flex pt-6">
         <CopyToClipboard
           //@ts-ignore
           className="btn btn-secondary"
@@ -31,12 +37,12 @@ const ShowAndCopy = (props: ShowAndCopyType) => {
         >
           <span>
             <FaCopy className="mr-2" />
-            Copy
+            Copy Code
           </span>
         </CopyToClipboard>
         <label htmlFor="my-modal" className="btn ml-2">
           <FaEye className="mr-2" />
-          View
+          View Code
         </label>
       </div>
 
@@ -52,12 +58,9 @@ const ShowAndCopy = (props: ShowAndCopyType) => {
           <h3 className="font-bold text-lg">
             Here is your Animation JSON in String form
           </h3>
-
-          <code>
-            {'"'}
-            {props.json}
-            {'"'}
-          </code>
+          <div className="bg-base-200 p-6 mt-4 rounded-lg">
+            <code>{props.json}</code>
+          </div>
 
           <div className="modal-action">
             <label htmlFor="my-modal" className="btn">
