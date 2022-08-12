@@ -31,6 +31,7 @@ body {
 }
 
 .uploadbox {
+  border-radius: 12px;
   border: 1px solid var(--bg-upload-main);
   animation: gradient 150s infinite;
   background-image: linear-gradient(var(--bg-upload-main) 0px, transparent 0px),
