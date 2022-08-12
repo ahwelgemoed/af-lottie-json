@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  --bg-main: rgb(25, 29, 36);
+  --bg-dots: #ffffffd6;
+  --bg-upload-main: rgb(73, 73, 73);
+  --bg-plus: rgb(25, 29, 36);
+  /* --bg-dots: #ffffff70; */
+}
+
+body {
+  background: linear-gradient(90deg, var(--bg-main) 15px, transparent 1%) 50%,
+    linear-gradient(var(--bg-main) 15px, transparent 1%) 50%, var(--bg-dots);
+  background-size: 16px 16px;
+}
+
+.file-drop {
+  @apply w-full h-full flex justify-center items-center min-h-16;
+}
+.file-drop-target {
+  @apply w-full h-full flex justify-center items-center min-h-16 cursor-pointer;
+}
+.mendix {
+  color: rgb(20, 111, 244);
+}
+
+.uploadbox-active {
+  --bg-upload-main: #9d9d9dd6;
+  /* --bg-plus: rgb(20, 111, 244); */
+}
+
+.uploadbox {
+  border: 1px solid var(--bg-upload-main);
+  animation: gradient 150s infinite;
+  background-image: linear-gradient(var(--bg-upload-main) 0px, transparent 0px),
+    linear-gradient(90deg, var(--bg-upload-main) 0px, transparent 0px),
+    linear-gradient(var(--bg-upload-main) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-upload-main) 1px, var(--bg-plus) 1px);
+  background-size: 90px 90px, 90px 90px, 18px 18px, 18px 18px;
+  background-position: -3.6px -3.6px, -3.6px -3.6px, -1.8px -1.8px,
+    -1.8px -1.8px;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+  }
+  100% {
+    background-position: 500% 50%;
+  }
+}
