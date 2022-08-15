@@ -173,7 +173,7 @@ const Home: NextPage = () => {
               </div>
               <div className="card w-full bg-base-100 h-full rounded-xl">
                 <div
-                  className={`card-body border-secondary rounded-xl gap-0 p-0 justify-center uploadbox sm:h-36 ${
+                  className={`card-body border-secondary rounded-xl gap-0 p-0 justify-center uploadbox min-h-36 ${
                     enterDragFrame ? "uploadbox-active" : ""
                   }
                   `}
