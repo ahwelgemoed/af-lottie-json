@@ -135,7 +135,7 @@ const Home: NextPage = () => {
           <div className="hero bg-base-200 rounded-xl p-6 h-fit">
             <div className="hero-content grid gap-4 grid-cols-1 grid-rows-1 lg:grid-cols-2">
               <div className="text-center lg:text-left">
-                <h1 className="text-5xl font-bold">
+                <h1 className="sm:text-5xl text-2xl font-bold">
                   <Link href="https://airbnb.design/lottie/" target={"_blank"}>
                     <a className="underline" target={"_blank"}>
                       Lottie
@@ -173,7 +173,7 @@ const Home: NextPage = () => {
               </div>
               <div className="card w-full bg-base-100 h-full rounded-xl">
                 <div
-                  className={`card-body border-secondary rounded-xl gap-0 p-0 min-h-8 justify-center uploadbox ${
+                  className={`card-body border-secondary rounded-xl gap-0 p-0 justify-center uploadbox sm:h-36 ${
                     enterDragFrame ? "uploadbox-active" : ""
                   }
                   `}
@@ -183,7 +183,7 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
-          <div className="items-center grid-flow-col self-end mt-3 pl-2 pr-2 pb-1 rounded-lg bg-black">
+          <div className="items-center grid-flow-col self-end mt-3 pl-2 pr-2 pb-1 rounded-lg bg-neutral">
             <span className="text-xs">
               <Link
                 href="https://github.com/mendixlabs/app-services-components"
