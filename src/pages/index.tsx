@@ -131,7 +131,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="h-screen flex justify-center items-center flex-col">
-        <div className="flex flex-col justify-center items-center  w-8/12">
+        <div className="flex flex-col justify-center items-center lg:max-w-4xl w-3/4">
           <div className="hero bg-base-200 rounded-xl p-6 h-fit">
             <div className="hero-content grid gap-4 grid-cols-1 grid-rows-1 lg:grid-cols-2">
               <div className="text-center lg:text-left">
