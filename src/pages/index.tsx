@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FileDrop } from "react-file-drop";
 import ShowAndCopy from "../components/ShowAndCopy";
 import UploadFile from "../components/UploadFile";
@@ -16,6 +16,14 @@ const Home: NextPage = () => {
   const [whatToDisplay, setWhatToDisplay] = useState<DisplayToUser>(
     DisplayToUser.DROP
   );
+  const [ourError, setOurError] = useState(false);
+  useEffect(() => {
+    if (ourError) {
+      setTimeout(() => {
+        setOurError(false);
+      }, 3000);
+    }
+  }, [ourError]);
   const [jsonToCopy, setJsonToCopy] = useState<string>("");
   const [enterDragFrame, setEnderDragFrame] = useState<boolean>(false);
   const [fileToUpload, setFileToUpload] = useState<File | undefined>(undefined);
@@ -35,7 +43,6 @@ const Home: NextPage = () => {
         .then((result) => {
           setJsonToCopy(result.json);
           setWhatToDisplay(DisplayToUser.SHOW);
-          console.log("Success:", result);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -60,6 +67,7 @@ const Home: NextPage = () => {
     const foundFile = files[0];
     if (foundFile?.type !== "application/json") {
       console.log("Wrong File Type");
+      setOurError(true);
       return;
     }
     setEnderDragFrame(false);
@@ -160,20 +168,23 @@ const Home: NextPage = () => {
                     </a>
                   </Link>{" "}
                   or{" "}
-                  <Link href="#" target="_blank">
+                  <Link
+                    href="https://mendixlabs.github.io/app-services-components/#/native-widgets/lottie-native-widget"
+                    target="_blank"
+                  >
                     <a
                       role="button"
                       className="link link-secondary"
                       target={"_blank"}
                     >
-                      Native (TBA)
+                      Native
                     </a>
                   </Link>
                 </p>
               </div>
-              <div className="card w-full bg-base-100 h-full rounded-xl">
+              <div className="card w-full bg-base-100 h-full rounded-x m-h-56">
                 <div
-                  className={`card-body border-secondary rounded-xl gap-0 p-0 justify-center uploadbox min-h-36 ${
+                  className={`card-body border-secondary rounded-xl gap-0 p-0 justify-center uploadbox  ${
                     enterDragFrame ? "uploadbox-active" : ""
                   }
                   `}
@@ -195,6 +206,17 @@ const Home: NextPage = () => {
           </div>
         </div>
       </main>
+      {ourError ? (
+        <div className="toast toast-top toast-center">
+          <div className="alert alert-info">
+            <div>
+              <span>Wrong file type</span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };

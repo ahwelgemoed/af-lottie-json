@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { FaCopy, FaEye } from "react-icons/fa";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useEffect, useRef, useState } from "react";
+import { FaCopy, FaEye, FaSpinner } from "react-icons/fa";
 import Lottie from "lottie-react";
 
 type ShowAndCopyType = {
@@ -9,6 +8,9 @@ type ShowAndCopyType = {
 
 const ShowAndCopy = (props: ShowAndCopyType) => {
   const [setCopy, setSetCopy] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const jsonSelected = useRef<HTMLElement>(null);
+
   useEffect(() => {
     if (setCopy) {
       setTimeout(() => {
@@ -17,9 +19,33 @@ const ShowAndCopy = (props: ShowAndCopyType) => {
     }
   }, [setCopy]);
 
+  /**
+   * Copying straight to Clipboard gives issues when pasting into Mendix.
+   * This helps us get the json sting from a hidden HTML element
+   */
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 100);
+  }, []);
+
+  const copyToClipBoard = async () => {
+    console.log("asd");
+    if (jsonSelected.current) {
+      try {
+        await navigator.clipboard.writeText(
+          jsonSelected.current?.innerText as string
+        );
+        setSetCopy(true);
+      } catch (error) {
+        setSetCopy(false);
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center items-center bg-base-100 h-full p-5">
-      <h3 className="text-lg">👏🏽 Great</h3>
+      <h3 className="text-lg">👏🏽👏🏽👏🏽 Preview 👏🏽👏🏽👏🏽</h3>
       <Lottie
         animationData={JSON.parse(props.json)}
         loop={true}
@@ -29,21 +55,36 @@ const ShowAndCopy = (props: ShowAndCopyType) => {
         You can click copy or select the text and paste it into Mendix
       </p>
       <div className="flex pt-6">
-        <CopyToClipboard
-          //@ts-ignore
-          className="btn btn-secondary"
-          text={props.json}
-          onCopy={() => setSetCopy(true)}
+        <button
+          className="btn btn-secondary flex"
+          onClick={copyToClipBoard}
+          disabled={isLoading}
         >
-          <span>
-            <FaCopy className="mr-2" />
-            Copy Code
-          </span>
-        </CopyToClipboard>
+          {isLoading ? (
+            <FaSpinner className="mr-2 animate-spin" />
+          ) : (
+            <FaCopy className="mr-2 " />
+          )}
+          Copy Code
+        </button>
         <label htmlFor="my-modal" className="btn ml-2">
           <FaEye className="mr-2" />
           View Code
         </label>
+        {!isLoading && (
+          <code
+            style={{
+              height: 100,
+              position: "absolute",
+              top: 9999999,
+              right: 9999999,
+              opacity: 0,
+            }}
+            ref={jsonSelected}
+          >
+            {props.json}
+          </code>
+        )}
       </div>
 
       <input type="checkbox" id="my-modal" className="modal-toggle" />
