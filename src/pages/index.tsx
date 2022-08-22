@@ -25,16 +25,17 @@ const Home: NextPage = () => {
     }
   }, [ourError]);
   const [jsonToCopy, setJsonToCopy] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [enterDragFrame, setEnderDragFrame] = useState<boolean>(false);
   const [fileToUpload, setFileToUpload] = useState<File | undefined>(undefined);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const uploadAndConvert = () => {
     if (fileToUpload) {
+      setIsLoading(true);
       const newForm = new FormData();
-
       newForm.append("File", fileToUpload);
-
       fetch("/api", {
         method: "POST",
         body: newForm,
@@ -42,9 +43,11 @@ const Home: NextPage = () => {
         .then((response) => response.json())
         .then((result) => {
           setJsonToCopy(result.json);
+          setIsLoading(false);
           setWhatToDisplay(DisplayToUser.SHOW);
         })
         .catch((error) => {
+          setIsLoading(false);
           console.error("Error:", error);
         });
     }
@@ -88,6 +91,7 @@ const Home: NextPage = () => {
                 <code className="bg-neutral p-2">{fileToUpload.name}</code>
                 <UploadFile
                   file={fileToUpload}
+                  isLoading={isLoading}
                   uploadAndConvert={uploadAndConvert}
                 />
               </div>

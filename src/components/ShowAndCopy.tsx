@@ -1,12 +1,20 @@
 import { useEffect, useRef, useState } from "react";
-import { FaCopy, FaEye, FaSpinner } from "react-icons/fa";
+import {
+  FaCopy,
+  FaEye,
+  FaSpinner,
+  FaArrowAltCircleDown,
+  FaCircle,
+} from "react-icons/fa";
 import Lottie from "lottie-react";
+import { useRouter } from "next/router";
 
 type ShowAndCopyType = {
   json: string;
 };
 
 const ShowAndCopy = (props: ShowAndCopyType) => {
+  const router = useRouter();
   const [setCopy, setSetCopy] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const jsonSelected = useRef<HTMLElement>(null);
@@ -30,7 +38,6 @@ const ShowAndCopy = (props: ShowAndCopyType) => {
   }, []);
 
   const copyToClipBoard = async () => {
-    console.log("asd");
     if (jsonSelected.current) {
       try {
         await navigator.clipboard.writeText(
@@ -65,12 +72,16 @@ const ShowAndCopy = (props: ShowAndCopyType) => {
           ) : (
             <FaCopy className="mr-2 " />
           )}
-          Copy Code
+          Copy
         </button>
-        <label htmlFor="my-modal" className="btn ml-2">
+        <label htmlFor="my-modal" className="btn btn-primary ml-2">
           <FaEye className="mr-2" />
-          View Code
+          View
         </label>
+        <button className="btn ml-2 " onClick={router.reload}>
+          <FaCircle className="mr-2" />
+          New
+        </button>
         {!isLoading && (
           <code
             style={{
@@ -82,7 +93,9 @@ const ShowAndCopy = (props: ShowAndCopyType) => {
             }}
             ref={jsonSelected}
           >
+            {"'"}
             {props.json}
+            {"'"}
           </code>
         )}
       </div>
